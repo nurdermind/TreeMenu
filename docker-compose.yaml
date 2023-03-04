@@ -18,6 +18,7 @@ services:
   web:
     build: .
     command: bash start.sh
+    restart: on-failure
     environment:
       MYSQL_HOST: db
       MYSQL_USER: *db_user
