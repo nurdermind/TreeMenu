@@ -10,8 +10,11 @@ register = template.Library()
 def draw_menu(context, menu_name):
     current_path = context.request.path
     menus_list = list(Menu.objects.select_related('parent').order_by('parent__id', 'id'))
-    node = build_menu_tree(menu_name, menus_list, current_path)
-    return {'nodes': [node]}
+
+    nodes = []
+    if menus_list:
+        nodes.append(build_menu_tree(menu_name, menus_list, current_path))
+    return {'nodes': nodes}
 
 
 def build_menu_tree(menu_name, menu_list, current_path):

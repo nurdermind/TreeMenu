@@ -4,9 +4,9 @@ services:
   db:
     image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: '123123123'
+      MYSQL_ROOT_PASSWORD: &db_password '60000p-70000p'
       MYSQL_USER: &db_user 'nurdermind'
-      MYSQL_PASSWORD: &db_password "123123123"
+      MYSQL_PASSWORD: *db_password
       MYSQL_DATABASE: &db_name "uptrader_db"
     networks:
       - local
@@ -24,6 +24,10 @@ services:
       MYSQL_USER: *db_user
       MYSQL_PASSWORD: *db_password
       MYSQL_DATABASE: *db_name
+
+      DJANGO_SUPERUSER_EMAIL: 'admin@django.ru'
+      DJANGO_SUPERUSER_USERNAME: 'admin'
+      DJANGO_SUPERUSER_PASSWORD: 'admin'
     volumes:
       - ./src:/src
     ports:
