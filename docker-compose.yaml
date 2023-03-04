@@ -3,7 +3,6 @@ version: '3.9'
 services:
   db:
     image: mysql
-    restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: '123123123'
       MYSQL_USER: &db_user 'nurdermind'
