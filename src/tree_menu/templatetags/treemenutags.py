@@ -13,7 +13,7 @@ def draw_menu(context, menu_name):
 
     nodes = []
     if menus_list:
-        nodes.append(build_menu_tree(menu_name, menus_list, current_path))
+        nodes = build_menu_tree(menu_name, menus_list, current_path)
     return {'nodes': nodes}
 
 
@@ -50,9 +50,8 @@ def build_menu_tree(menu_name, menu_list, current_path):
         return node
 
     # Находим корневые элементы и строим древовидный словарь
-    root = None
+    roots = []
     for menu in menu_list:
         if menu.name == menu_name:
-            root = menu
-            break
-    return build_node(root.id)
+            roots.append(menu)
+    return [build_node(root.id) for root in roots]
