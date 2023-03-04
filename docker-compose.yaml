@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: '123123123'
+      MYSQL_USER: &db_user 'nurdermind'
+      MYSQL_PASSWORD: &db_password "123123123"
+      MYSQL_DATABASE: &db_name "uptrader_db"
+    networks:
+      - local
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "db", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+  web:
+    build: .
+    command: bash start.sh
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: *db_user
+      MYSQL_PASSWORD: *db_password
+      MYSQL_DATABASE: *db_name
+    volumes:
+      - ./src:/src
+    ports:
+      - "8001:8001"
+    networks:
+      - local
+    depends_on:
+      db:
+        condition: service_healthy
+networks:
+  local:
