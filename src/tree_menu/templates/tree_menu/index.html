@@ -7,6 +7,7 @@
 
 {% block body %}
     {% for menu_name in menu_names %}
+        <h6>{{ menu_name }}:</h6>
         {% draw_menu menu_name %}
     {% endfor %}
 {% endblock %}

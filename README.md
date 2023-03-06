@@ -6,12 +6,9 @@ Python
 docker-compose up
 ```
 ## Usage
-
-open link in browser
 `http://localhost:8001`
 
-empty?
+## Admin
+`http://localhost:8001/admin/`
 
-1. Go to
-`http://localhost:8001/admin/tree_menu/menu/`
-2. Create menus
+login:pass `admin:admin`
