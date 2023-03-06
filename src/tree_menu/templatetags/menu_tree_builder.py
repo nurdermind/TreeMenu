@@ -1,7 +1,10 @@
+from ..models import Menu
+
+
 class MenuTreeBuilder:
-    def __init__(self, menu_name, menu_list, current_path):
+    def __init__(self, menu_name, current_path):
         self.menu_name = menu_name
-        self.menu_list = menu_list
+        self.menu_list = Menu.objects.select_related('parent').order_by('parent__id', 'id')
         self.current_path = current_path
         self.menu_dict = {}
         self.children_dict = {}
