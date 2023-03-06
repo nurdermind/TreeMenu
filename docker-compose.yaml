@@ -17,8 +17,23 @@ services:
       interval: 5s
       timeout: 10s
       retries: 3
+  server:
+    build:
+      context: server
+      dockerfile: ./Dockerfile
+    networks:
+      - local
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    volumes:
+      - static_volume:/web/static
+      - media_volume:/web/media
   web:
-    build: .
+    build:
+      context: ./web
+      dockerfile: Dockerfile
     command: bash start.sh
     restart: on-failure
     environment:
@@ -31,13 +46,25 @@ services:
       DJANGO_SUPERUSER_USERNAME: 'admin'
       DJANGO_SUPERUSER_PASSWORD: 'admin'
     volumes:
-      - ./src:/src
+      - ./web:/web
+      - static_volume:/web/static
+      - media_volume:/web/media
     ports:
-      - "8001:8001"
+      - "8001:8000"
     networks:
       - local
     depends_on:
       db:
         condition: service_healthy
+
+    healthcheck:
+      test: [ "CMD", "ping", "-c", "1", "localhost:80" ]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+
 networks:
   local:
+volumes:
+  static_volume:
+  media_volume:
