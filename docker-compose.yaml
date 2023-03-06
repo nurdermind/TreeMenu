@@ -10,8 +10,6 @@ services:
       MYSQL_DATABASE: &db_name "uptrader_db"
     networks:
       - local
-    ports:
-      - "3307:3306"
     volumes:
       - ./db:/docker-entrypoint-initdb.d
     healthcheck:
