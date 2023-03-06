@@ -1,8 +1,8 @@
 <ul>
-    {% for node in nodes %}
+    {% for node in menu_tree %}
         <li><a href="{{ node.url }}" {% if node.disabled %}class="disabled"{% endif %}>{{ node.title }} </a>
             {% if node.children and node.is_expanded %}
-                {% include 'tree_menu/menu.html' with nodes=node.children %}
+                {% include 'tree_menu/menu.html' with menu_tree=node.children %}
             {% endif %}
         </li>
     {% endfor %}

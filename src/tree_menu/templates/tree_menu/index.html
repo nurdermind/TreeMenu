@@ -6,5 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    {% draw_menu 'root' %}
+    {% for menu_name in menu_names %}
+        {% draw_menu menu_name %}
+    {% endfor %}
 {% endblock %}
